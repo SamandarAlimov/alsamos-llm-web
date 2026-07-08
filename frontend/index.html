@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alsamos LLM — Professional AI Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" />
+</head>
+<body>
+  <div class="login-overlay" id="loginOverlay">
+    <div class="login-card">
+      <div class="brand-mark"><svg viewBox="0 0 32 32" width="36" height="36" aria-hidden="true"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#8B7CF6"/><stop offset="1" stop-color="#4F9BFF"/></linearGradient></defs><path d="M16 2 L28 26 H21.5 L16 13 L10.5 26 H4 Z" fill="url(#lg)"/></svg></div>
+      <h2>Alsamos LLM</h2>
+      <p>Kirish uchun parolni kiriting</p>
+      <input id="loginPass" type="password" placeholder="Parol" autocomplete="current-password" />
+      <button id="loginBtn">Kirish</button>
+      <span class="login-err" id="loginErr"></span>
+    </div>
+  </div>
+
+  <div class="app">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-mark">
+          <svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true">
+            <defs>
+              <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#8B7CF6"/><stop offset="1" stop-color="#4F9BFF"/>
+              </linearGradient>
+            </defs>
+            <path d="M16 2 L28 26 H21.5 L16 13 L10.5 26 H4 Z" fill="url(#g)"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">Alsamos</span>
+          <span class="brand-sub">LLM Platform</span>
+        </div>
+      </div>
+
+      <button class="new-chat" id="newChat">
+        <svg viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 5v14M5 12h14"/></svg>
+        Yangi suhbat
+      </button>
+
+      <div class="mode-switch" role="tablist">
+        <button class="mode-btn active" data-mode="chat" role="tab">💬 Chat</button>
+        <button class="mode-btn" data-mode="agent" role="tab">🧠 Agent</button>
+        <button class="mode-btn" data-mode="image" role="tab">🎨 Rasm</button>
+      </div>
+
+      <div class="panel">
+        <label class="panel-label" for="modelSelect">Model</label>
+        <select id="modelSelect" class="model-select"></select>
+        <p class="model-desc" id="modelDesc"></p>
+      </div>
+
+      <div class="capabilities">
+        <span class="cap-title">Imkoniyatlar</span>
+        <div class="cap-grid">
+          <span class="cap">💬 Chat</span>
+          <span class="cap">🧠 Reasoning</span>
+          <span class="cap">💻 Code</span>
+          <span class="cap">🎨 Rasm</span>
+          <span class="cap">🔍 Web</span>
+          <span class="cap">📊 Excel</span>
+          <span class="cap">📍 Geo</span>
+          <span class="cap">🎥 Video*</span>
+          <span class="cap">🌐 Browser*</span>
+          <span class="cap">✨ Motion</span>
+        </div>
+        <span class="cap-note">* backend tool-adapter orqali kengaytiriladi</span>
+      </div>
+
+      <div class="metrics" id="metricsPanel">
+        <span class="cap-title">Intelligence monitor</span>
+        <div class="metric-row"><span>Success rate</span><b id="mSuccess">–</b></div>
+        <div class="metric-row"><span>Avg quality</span><b id="mQuality">–</b></div>
+        <div class="metric-row"><span>Quality trend</span><b id="mTrend">–</b></div>
+        <div class="metric-row"><span>Bajarilgan</span><b id="mTotal">–</b></div>
+      </div>
+
+      <div class="sidebar-foot">
+        <span id="keyStatus" class="key-status"></span>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="hamburger" id="hamburger" aria-label="Menyu">≡</button>
+        <div class="topbar-title" id="topbarTitle">Chat</div>
+        <button class="theme-toggle" id="themeToggle" aria-label="Mavzu">☾</button>
+      </header>
+
+      <section class="chat" id="chat">
+        <div class="welcome" id="welcome">
+          <div class="welcome-orb"></div>
+          <h1>Alsamos LLM</h1>
+          <p>Vazifani tugatmaguncha ishlaydigan, professional o'ylaydigan AI platforma. Barcha bepul modellar ulangan.</p>
+          <div class="suggestions" id="suggestions">
+            <button class="suggestion">FizzBuzz'ni Python'da yozib ber</button>
+            <button class="suggestion">Startup uchun 90 kunlik reja tuz</button>
+            <button class="suggestion">Tog' cho'qqisida quyosh chiqishi rasmi</button>
+            <button class="suggestion">Eng so'nggi AI yangiliklarini qidirib xulosa qil</button>
+          </div>
+        </div>
+        <div class="messages" id="messages"></div>
+      </section>
+
+      <footer class="composer">
+        <div class="composer-inner">
+          <textarea id="input" class="input" rows="1" placeholder="Alsamos'ga yozing… (Enter — yuborish, Shift+Enter — yangi qator)"></textarea>
+          <button id="send" class="send" aria-label="Yuborish">
+            <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M3.4 20.4l17.45-7.48a1 1 0 000-1.84L3.4 3.6a1 1 0 00-1.39 1.15L4 11l12 1-12 1-1.99 6.25a1 1 0 001.39 1.15z"/></svg>
+          </button>
+        </div>
+        <span class="composer-hint" id="composerHint">Alsamos xato qilishi mumkin — muhim natijalarni tekshiring.</span>
+      </footer>
+    </main>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="/static/app.js"></script>
+</body>
+</html>

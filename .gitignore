@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+env/
+*.egg-info/
+
+# Secrets & local state (MUHIM: .env hech qachon commit qilinmasin)
+.env
+.env.local
+backend/.env
+backend/.alsamos_state/
+*.log
+
+# Node / frontend
+node_modules/
+frontend-react/node_modules/
+frontend-react/dist/
+frontend-react/*.tsbuildinfo
+dist/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# QA / vaqtinchalik
+_qa.html
+qa_*.png

@@ -1,0 +1,15 @@
+.venv/
+**/__pycache__/
+*.pyc
+backend/.alsamos_state/
+backend/.env
+*.zip
+.git/
+.gitignore
+frontend/_qa.html
+# React: manba kerak (stage 1), lekin bular kerak emas
+frontend-react/node_modules/
+frontend-react/dist/
+frontend-react/*.tsbuildinfo
+node_modules/
+qa_*.png

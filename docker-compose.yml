@@ -1,0 +1,33 @@
+# Alsamos LLM — production stack (app + Caddy avtomatik HTTPS)
+# Ishga tushirish:  docker compose up -d --build
+services:
+  app:
+    build: .
+    env_file:
+      - backend/.env
+    environment:
+      - ALSAMOS_HOST=0.0.0.0
+      - ALSAMOS_ENV=production
+    volumes:
+      - alsamos_state:/app/backend/.alsamos_state
+    expose:
+      - "8000"
+    restart: unless-stopped
+
+  caddy:
+    image: caddy:2
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - app
+    restart: unless-stopped
+
+volumes:
+  alsamos_state:
+  caddy_data:
+  caddy_config:

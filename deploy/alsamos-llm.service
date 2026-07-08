@@ -1,0 +1,20 @@
+# Alsamos LLM — systemd service (Docker o'rniga to'g'ridan-to'g'ri usul)
+# /etc/systemd/system/alsamos-llm.service ga qo'ying, so'ng:
+#   sudo systemctl daemon-reload
+#   sudo systemctl enable --now alsamos-llm
+#   sudo systemctl status alsamos-llm
+[Unit]
+Description=Alsamos LLM Platform
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+WorkingDirectory=/opt/alsamos-llm
+EnvironmentFile=/opt/alsamos-llm/backend/.env
+ExecStart=/opt/alsamos-llm/.venv/bin/gunicorn -c gunicorn_conf.py backend.main:app
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

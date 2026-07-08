@@ -1,0 +1,22 @@
+# Alsamos LLM — Caddy reverse proxy (avtomatik Let's Encrypt HTTPS)
+# ai.alsamos.com A-record server IP ga yo'naltirilgan bo'lishi kerak.
+
+{
+	email samandaralimov18@gmail.com
+}
+
+ai.alsamos.com {
+	encode zstd gzip
+	reverse_proxy app:8000 {
+		# SSE (streaming) uchun buferlashni o'chirish
+		flush_interval -1
+	}
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "SAMEORIGIN"
+		Referrer-Policy "strict-origin-when-cross-origin"
+	}
+}
+
+# HTTP → HTTPS avtomatik yo'naltiriladi (Caddy buni o'zi qiladi).
